@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>VueJS</title>
+  </head>
+  <body>
+
+    <div id="app" class="container">
+      <p>Total Likes: {{total}}</p>
+      <like-component message="Like" @increment="incrementTotal"  ></like-component>
+      <like-component message="Awesome"@increment="incrementTotal" ></like-component>
+      <like-component message="Great" @increment="incrementTotal"></like-component>
+      <like-component v-on:increment="incrementTotal"></like-component>
+
+      <h1>
+        <button  @click="purge">Purge</button>
+        My TODOS
+        <span class="info">({{remaining.length}}/{{todos.length}})</span>
+      </h1>
+      <ul v-if="todos.length">
+        <li v-for="(todo, index) in todos">
+          <input type="checkbox" v-model="todo.isDone" >
+          <span v-bind:class="{done: todo.isDone}"> {{ todo.title }}</span>
+
+          <span class="command" v-on:click="deleteItem(index)">[x]</span>
+        </li>
+      </ul>
+      <ul v-else>
+        <li >Nothing to do, yay!</li>
+      </ul>
+      <form v-on:submit.prevent="addItem">
+        <input type="text" v-model="newItem">
+        <input type="submit" name="" value="ADD">
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+
+
+  </body>
+</html>
